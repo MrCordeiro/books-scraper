@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "bookscraper"
+version = "0.1.0"
+description = "Sandbox project for testing and developing `Scrapy` spiders."
+authors = ["Fernando Cordeiro"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+scrapy = "^2.9.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+ipython = "^8.13.2"
+isort = "^5.12.0"
+mypy = "^1.3.0"
+pre-commit = "^3.3.1"
+ruff = "^0.0.267"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
