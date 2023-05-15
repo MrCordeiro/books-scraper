@@ -1,4 +1,4 @@
-# Scrapy settings for bookscraper project
+# Scrapy settings for books_scraper project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -7,14 +7,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = "bookscraper"
+BOT_NAME = "books_scraper"
 
-SPIDER_MODULES = ["bookscraper.spiders"]
-NEWSPIDER_MODULE = "bookscraper.spiders"
-
+SPIDER_MODULES = ["books_scraper.spiders"]
+NEWSPIDER_MODULE = "books_scraper.spiders"
+CLOSESPIDER_ERRORCOUNT = 1
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-# USER_AGENT = "bookscraper (+http://www.yourdomain.com)"
+# USER_AGENT = "books_scraper (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
@@ -45,13 +45,13 @@ ROBOTSTXT_OBEY = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    "bookscraper.middlewares.BookscraperSpiderMiddleware": 543,
+#    "books_scraper.middlewares.BookscraperSpiderMiddleware": 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    "bookscraper.middlewares.BookscraperDownloaderMiddleware": 543,
+#    "books_scraper.middlewares.BookscraperDownloaderMiddleware": 543,
 # }
 
 # Enable or disable extensions
@@ -62,9 +62,9 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-# ITEM_PIPELINES = {
-#    "bookscraper.pipelines.BookscraperPipeline": 300,
-# }
+ITEM_PIPELINES = {
+    "books_scraper.pipelines.BookscraperPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

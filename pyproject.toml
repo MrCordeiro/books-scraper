@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "bookscraper"
+name = "books_scraper"
 version = "0.1.0"
 description = "Sandbox project for testing and developing `Scrapy` spiders."
 authors = ["Fernando Cordeiro"]

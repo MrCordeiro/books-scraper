@@ -1,4 +1,6 @@
 minimum_pre_commit_version: 2.11.0
+default_language_version:
+  python: python3.11
 default_stages: [commit, push, manual]
 repos:
   - repo: https://github.com/psf/black
