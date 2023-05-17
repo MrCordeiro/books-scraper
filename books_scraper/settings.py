@@ -13,6 +13,12 @@ SPIDER_MODULES = ["books_scraper.spiders"]
 NEWSPIDER_MODULE = "books_scraper.spiders"
 CLOSESPIDER_ERRORCOUNT = 1
 
+# Used to create a default output file, without having to specify it in the
+# command line
+FEEDS = {
+    "books.json": {"format": "json"},
+}
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = "books_scraper (+http://www.yourdomain.com)"
 
@@ -64,6 +70,7 @@ ROBOTSTXT_OBEY = True
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     "books_scraper.pipelines.BookscraperPipeline": 300,
+    "books_scraper.pipelines.SaveToSQLitePipeline": 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

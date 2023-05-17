@@ -20,8 +20,8 @@ class BookItem:
     price_excl_tax: str | None
     price_incl_tax: str | None
     tax: str | None = field(metadata={"serializer": _serialize_price})
-    availability: int | None
-    num_reviews: int | None
+    availability: str | None
+    num_reviews: str | None
     stars: str | None
     category: str | None
     description: str | None

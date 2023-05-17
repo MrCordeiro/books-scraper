@@ -1,4 +1,6 @@
 """Pipeline for cleaning the scraped data."""
+import sqlite3
+
 from itemadapter.adapter import ItemAdapter
 
 from books_scraper.items import BookItem
@@ -83,3 +85,79 @@ class BookscraperPipeline:
         self._parse_stars(adapter)
 
         return item
+
+
+class SaveToSQLitePipeline:
+    def __init__(self) -> None:
+        """Pipeline for saving scraped data to SQLite database."""
+        self.conn = sqlite3.connect("books.sqlite")
+        self.cursor = self.conn.cursor()
+        self._create_table()
+
+    def _create_table(self) -> None:
+        """Create table if it doesn't exist."""
+        self.cursor.execute(
+            """
+            CREATE TABLE IF NOT EXISTS books (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                url VARCHAR(255),
+                title text,
+                upc VARCHAR(255),
+                product_type VARCHAR(255),
+                price_excl_tax DECIMAL,
+                price_incl_tax DECIMAL,
+                tax DECIMAL,
+                price DECIMAL,
+                availability INTEGER,
+                num_reviews INTEGER,
+                stars INTEGER,
+                category VARCHAR(255),
+                description text
+            )
+            """
+        )
+        self.conn.commit()
+
+    def process_item(self, item: BookItem, spider: BooksSpider):
+        """Save item to database."""
+
+        self.cursor.execute(
+            """
+            INSERT INTO books (
+                url,
+                title,
+                upc,
+                product_type,
+                price_excl_tax,
+                price_incl_tax,
+                tax,
+                price,
+                availability,
+                num_reviews,
+                stars,
+                category,
+                description
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                item.url,
+                item.title,
+                item.upc,
+                item.product_type,
+                item.price_excl_tax,
+                item.price_incl_tax,
+                item.tax,
+                item.price,
+                item.availability,
+                item.num_reviews,
+                item.stars,
+                item.category,
+                item.description,
+            ),
+        )
+        self.conn.commit()
+        return item
+
+    def close_spider(self, spider):
+        """Close cursor & connection to database."""
+        self.cursor.close()
+        self.conn.close()

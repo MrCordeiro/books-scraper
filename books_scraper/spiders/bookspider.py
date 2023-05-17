@@ -11,6 +11,13 @@ class BooksSpider(scrapy.Spider):
     allowed_domains = ["books.toscrape.com"]
     start_urls = ["https://books.toscrape.com"]
 
+    # Override the default settings for the JSON feed exporter
+    custom_settings = {
+        "FEEDS": {
+            "books.json": {"format": "json", "overwrite": True},
+        },
+    }
+
     def parse(self, response: HtmlResponse) -> Iterator[BookItem | scrapy.Request]:
         """Parse the response downloaded for each of the requests made and
         yield a dict with the book's name, price and url.
