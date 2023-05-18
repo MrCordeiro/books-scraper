@@ -72,6 +72,8 @@ DOWNLOADER_MIDDLEWARES = {
     # "books_scraper.middlewares.BookscraperDownloaderMiddleware": 543,
     "books_scraper.middlewares.ScrapeOpsFakeUserAgentMiddleware": 500,
     "books_scraper.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 600,
+    "rotating_proxies.middlewares.RotatingProxyMiddleware": 610,
+    "rotating_proxies.middlewares.BanDetectionMiddleware": 620,
 }
 
 # Enable or disable extensions
@@ -122,3 +124,17 @@ SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = (
 SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
 SCRAPEOPS_NUM_RESULTS = 5
+
+# Proxy settings
+# Proxies are used to disguise the IP address of the scraper, so that the
+# website doesn't block it
+# A possible source of free proxies is https://free-proxy-list.net/ or
+# https://geonode.com/free-proxy-list
+# ! Free proxies can be considerably slow
+ROTATING_PROXY_LIST = [
+    "177.101.135.84:5678",
+    "66.97.37.164:80",
+    "103.76.188.241:4153",
+]
+# Alternatively, you can read the proxies from a file
+# ROTATING_PROXY_LIST_PATH = "proxies.txt"
