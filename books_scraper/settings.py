@@ -6,6 +6,11 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BOT_NAME = "books_scraper"
 
@@ -15,9 +20,15 @@ CLOSESPIDER_ERRORCOUNT = 1
 
 # Used to create a default output file, without having to specify it in the
 # command line
-FEEDS = {
-    "books.json": {"format": "json"},
-}
+# FEEDS = {
+#     "books.json": {"format": "json"},
+# }
+
+# Sets a default user agent
+USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+)
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 # USER_AGENT = "books_scraper (+http://www.yourdomain.com)"
@@ -54,11 +65,14 @@ ROBOTSTXT_OBEY = True
 #    "books_scraper.middlewares.BookscraperSpiderMiddleware": 543,
 # }
 
-# Enable or disable downloader middlewares
+# The downloader middleware a system for globally altering Scrapy's requests
+# and responses.
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-# DOWNLOADER_MIDDLEWARES = {
-#    "books_scraper.middlewares.BookscraperDownloaderMiddleware": 543,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    # "books_scraper.middlewares.BookscraperDownloaderMiddleware": 543,
+    "books_scraper.middlewares.ScrapeOpsFakeUserAgentMiddleware": 500,
+    "books_scraper.middlewares.ScrapeOpsFakeBrowserHeaderAgentMiddleware": 600,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -98,3 +112,13 @@ ITEM_PIPELINES = {
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
+# Scrapeops settings
+SCRAPEOPS_API_KEY = os.getenv("SCRAPEOPS_API_KEY")
+SCRAPEOPS_FAKE_USER_AGENT_ENDPOINT = "https://headers.scrapeops.io/v1/user-agents"
+SCRAPEOPS_FAKE_BROWSER_HEADER_ENDPOINT = (
+    "https://headers.scrapeops.io/v1/browser-headers"
+)
+SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+SCRAPEOPS_FAKE_BROWSER_HEADER_ENABLED = True
+SCRAPEOPS_NUM_RESULTS = 5
