@@ -1,4 +1,4 @@
-# Bookscraper Sandbox
+# Books Scraper Sandbox
 
 A sandbox for testing and developing `Scrapy` spiders.
 
@@ -34,5 +34,13 @@ item.css('<css_selector>').attrib['<attribute_name>']
 ### Run the spider
 
 ```bash
-scrapy crawl <spider_name>
+scrapy crawl <spider_name> -O <output_file_name>
 ```
+
+## Deployment
+
+### Deployment services
+
+- [ScrapyD](https://github.com/scrapy/scrapyd): **Free and open source** application that allows us to deploy Scrapy spiders on a server and run them remotely. You'll need your own server to deploy the spiders. There is not scheduling or monitoring. Control is done via a REST API. UI is done via 3rd party tools.
+- [ScrapeOps](https://scrapeops.io): **Paid and free** service that allows us to deploy Scrapy spiders on a server and run them remotely. It has scheduling and monitoring. Built-in UI and monitoring.
+- [ScrapyCloud](https://www.zyte.com/scrapy-cloud/): **Paid** service that allows us to deploy Scrapy spiders on their servers and run them remotely. It has scheduling and monitoring. Built-in UI and monitoring.
